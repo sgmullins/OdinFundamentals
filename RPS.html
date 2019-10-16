@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+ 
+    
+<script>
+
+    function getRandomInt(min, max) {
+        //The maximum is exclusive and the minimum is inclusive(use 1, 4)
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function computerPlay(){
+        let computerChoice = getRandomInt(1,4);
+        switch(computerChoice){
+            case 1: 
+            return 'rock';
+            break;
+            case 2:
+            return 'paper';
+            case 3: 
+            return 'scissors';
+            break;           
+        }  
+    }   
+
+
+    function playRound(playerSelection, computerSelection){
+        switch(playerSelection){
+            case 'rock':
+                switch(computerSelection){
+                    case 'rock':
+                    return 'You tied! Try again';
+                    break;
+                    case 'paper':
+                    return 'You lose! Paper beats rock!';
+                    break;
+                    case 'scissors':
+                    return 'You win! Rock beats scissors!'
+                    break;
+                }
+            break;
+            case 'paper':
+                switch(computerSelection){
+                    case 'rock':
+                    return 'You win! Paper beats rock!';
+                    break;
+                    case 'paper':
+                    return 'You tied! Try again';
+                    break;
+                    case 'scissors':
+                    return 'You lose! Scissors beats paper!'
+                    break;
+                }
+            break;
+            case 'scissor':
+                switch(computerSelection){
+                    case 'rock':
+                    return 'You lose! Rock beats scissors!';
+                    break;
+                    case 'paper':
+                    return 'You win! Scissors beats paper!';
+                    break;
+                    case 'scissors':
+                    return 'You tied! Try again'
+                    break;
+                }
+            break;
+        }
+
+    }
+
+const computerSelection = computerPlay();
+const playerSelection = 'rock';
+console.log('computer is ' + computerSelection + " You are " + playerSelection);
+console.log(playRound(playerSelection, computerSelection));     
+        
+    
+</script>
+</body>
+</html>
