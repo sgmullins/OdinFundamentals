@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/37ccc5b7d8.js" crossorigin="anonymous"></script>
+
+    <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+    <div class="para">
+        <h2>Throw down your choice!</h2>
+    </div>
+    <div class="score">
+        <p>Your Score is <span class="playerScore">0</span></p>
+        <p>Computer's Score is <span class="computerScore">0</span></p>
+
+    </div>
+    <div class="choices">
+        <i id="rock" class="choice fas fa-hand-rock fa-10x"></i>
+        <i id="paper" class="choice fas fa-hand-paper fa-10x"></i>
+        <i id="scissors" class="choice fas fa-hand-scissors fa-10x"></i>
+    </div>
+</body>
+
+
+<script>
+    let result = '';
+    let playerResult = 0;
+    let computerResult = 0;
+    const playerScore = document.querySelector('.playerScore');
+    const computerScore = document.querySelector('.computerScore');
+
+    //player choice
+    const choices = document.querySelectorAll('.choice');
+    choices.forEach(choice => choice.addEventListener('click', play));
+
+    //generates a random number between 1 and 3 inclusive, later assigned to computerChoice
+    function getRandomInt(min, max) {
+        //The maximum is exclusive and the minimum is inclusive(use 1, 4)
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    //Take randomInt and generates computerChoice of Rock Paper or Scissor
+    function getComputerChoice() {
+        let computerChoice = getRandomInt(1, 4);
+        switch (computerChoice) {
+            case 1:
+                return 'rock';
+                break;
+            case 2:
+                return 'paper';
+            case 3:
+                return 'scissors';
+                break;
+        }
+    }
+
+    //game play
+    function play(e) {
+        const playerChoice = e.target.id;
+        const computerChoice = getComputerChoice();
+        const winner = decideWinner(playerChoice, computerChoice);
+        console.log(playerChoice, computerChoice, winner);
+        //Scores results of each round, tie is left out
+        if (result == 'win') {
+            playerResult++;
+            playerScore.innerHTML = playerResult;
+        } else if (result == 'lose') {
+            computerResult++;
+            computerScore.innerHTML = computerResult;
+        }
+        if (playerResult === 5) {
+            alert("player wins!")
+        } else if (computerResult === 5) {
+            alert("computer wins!")
+        }
+    }
+
+    //Decided who wins the game
+    function decideWinner(player, computer) {
+        switch (player) {
+            case 'rock':
+                switch (computer) {
+                    case 'rock':
+                        result = 'tie';
+                        return 'You tied! Try again';
+                        break;
+                    case 'paper':
+                        result = 'lose';
+                        return 'You lose! Paper beats rock!';
+                        break;
+                    case 'scissors':
+                        result = 'win';
+                        return 'You win! Rock beats scissors!'
+                        break;
+                }
+                break;
+            case 'paper':
+                switch (computer) {
+                    case 'rock':
+                        result = 'win';
+                        return 'You win! Paper beats rock!';
+                        break;
+                    case 'paper':
+                        result = 'tie';
+                        return 'You tied! Try again';
+                        break;
+                    case 'scissors':
+                        result = 'lose';
+                        return 'You lose! Scissors beats paper!'
+                        break;
+                }
+                break;
+            case 'scissors':
+                switch (computer) {
+                    case 'rock':
+                        result = 'lose';
+                        return 'You lose! Rock beats scissors!';
+                        break;
+                    case 'paper':
+                        result = 'win';
+                        return 'You win! Scissors beats paper!';
+                        break;
+                    case 'scissors':
+                        result = 'tie';
+                        return 'You tied! Try again'
+                        break;
+                }
+                break;
+        }
+    }
+</script>
+
+</html>
